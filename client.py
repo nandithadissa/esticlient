@@ -5,19 +5,24 @@ import threading
 from ml import Inference
 import os
 
+
+print("ml backend loading...")
 ml = Inference()
+print("ml backend loaded...")
 
 def mlprocess():
 
 	req = {}
-	res  = requests.post('http://192.168.0.204:8000/__getrequestimages',json=req)
+	#res  = requests.post('http://192.168.0.204:8000/__getrequestimages',json=req)
+	res  = requests.post('https://esti-mate.ml/__getrequestimages',json=req)
 
 	if res.ok:
 		print("ok");
 		r = res.json()
 		nonce = r['nonce']
 		url = r['url']
-		print("nonce of request received:{} with url {}".format(nonce,url))
+		#print("nonce of request received:{} with url {}".format(nonce,url))
+		print("request {} received".format(nonce))
 
 		#do processing
 		#copy images
@@ -40,13 +45,15 @@ def mlprocess():
 
 		#upload the ml data
 		req = {"filter":filter,"damage":damage,"frcnn":frcnn}
-		res  = requests.post('http://192.168.0.204:8000/__uploadimagemlanalysis',json=req)
-		
+		#res  = requests.post('http://192.168.0.204:8000/__uploadimagemlanalysis',json=req)
+		res  = requests.post('https://esti-mate.ml/__uploadimagemlanalysis',json=req)
 	else:
-		print("__getrequestimages failed")
+		None
+		#print("waiting..")
 		
 	return
 
-for i in range(1000):
+#for i in range(1000):
+while True:
 	mlprocess()
-	time.sleep(1)
+	time.sleep(5)
