@@ -12,10 +12,13 @@ print("ml backend loading...")
 ml = Inference()
 print("ml backend loaded...")
 
+
+
 def mlprocess():
 
 	req = {}
-	res  = requests.post('https://esti-mate.ml/__getrequestimages',json=req)
+	res  = requests.post('http://192.168.0.204:8000/__getrequestimages',json=req)
+	#res  = requests.post('https://esti-mate.ml/__getrequestimages',json=req)
 
 	if res.ok:
 
@@ -52,12 +55,21 @@ def mlprocess():
 			req = {"nonce":nonce,"analysis":{"filter":filter,"damage":damage,"frcnn":frcnn}}
 			reqlist.append(req)
 
-		res  = requests.post('https://esti-mate.ml/__uploadimagemlanalysis',json=reqlist)
+		res  = requests.post('http://192.168.0.204:8000/__uploadimagemlanalysis',json=reqlist)
+		#res  = requests.post('https://esti-mate.ml/__uploadimagemlanalysis',json=reqlist)
 	else:
 		None
 		#print("waiting..")
 		
 	return
+
+#register the mlclient
+res  = requests.post('http://192.168.0.204:8000/__registermlclient',json={"id":"1"})
+if not res.ok:
+	print("ML client registeration Failed")
+	exit
+
+time.sleep(5)
 
 #for i in range(1000):
 while True:

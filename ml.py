@@ -29,6 +29,14 @@ from detection import roi_helpers
 from detection import resnet 
 sys.setrecursionlimit(40000)
 
+#gpu
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+config.log_device_placement = True
+sess = tf.Session(config=config)
+#gpu
+
+
 #tdlite filter code
 from tensorflow.lite.python.interpreter import Interpreter
 
