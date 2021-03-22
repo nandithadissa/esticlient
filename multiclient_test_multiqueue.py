@@ -19,7 +19,7 @@ print("ml backend loaded...")
 
 import socket
 h_name = socket.gethostname()
-IP_address = socket.gethostbyname(h_name)
+IP_address = socket.gethostbyname(h_name+".local")
 
 mlclientId = random.randint(1,10000)#hashlib.sha256(str(uuid4().hex).encode()).hexdigest()[:6]
 basedir = os.path.abspath(os.path.dirname(__file__))
