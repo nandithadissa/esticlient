@@ -136,7 +136,7 @@ if __name__ == "__main__":
 		try:
 			requests_no, estimates_no, rejects_no = mlprocess(mlclientId,int(requests_no),int(estimates_no),int(rejects_no))
 			time.sleep(2)
-			writestat(mlclientId,IP_address,"TEST",requests_no,estimates_no,rejects_no)
+			writestat(mlclientId,IP_address,"PROD",requests_no,estimates_no,rejects_no)
 			savestats(log_file_path,requests_no,estimates_no,rejects_no)
 		except KeyboardInterrupt:
 			print("CTRL-C pressed exiting..")
